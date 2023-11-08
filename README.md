@@ -4,7 +4,7 @@ The *AirBnB_clone* project involvels creating a web application that simulates t
 
 ## Table of Contents
 
-- [Background context](#backgroundcontext)
+- [Background context](#background-context)
 - [Files](#files)
 - [Task Description](Task-description)
 - [How to Use](#how-to-use)
