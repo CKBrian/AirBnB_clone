@@ -20,6 +20,12 @@ class TestBaseModel(TestCase):
         mod3 = BaseModel(**dict_obj)
         self.assertEqual(mod3.to_dict(), dict_obj)
 
+        storage = FileStorage()
+        storage.save()
+        self.assertIsNotNone(storage._FileStorage__objects)
+        storage.reload()
+        self.assertEqual(storage._FileStorage__objects, storage.all())
+
     def test_save(self):
         """tests for save method"""
         model1 = BaseModel()
