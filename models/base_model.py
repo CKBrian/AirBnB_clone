@@ -58,6 +58,8 @@ class BaseModel():
         for key, value in self.__dict__.items():
             if key not in objects[dict_keys[-1]]:
                 objects[dict_keys[-1]][key] = value
+        key = "{}.{}".format(self.__class__.__name__, self.id)
+        objects[key] = self.to_dict()
         storage.save()
 
     def to_dict(self):
