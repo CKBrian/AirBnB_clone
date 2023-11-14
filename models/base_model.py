@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """defines a base_model module"""
 from datetime import datetime
+import models
 import json
 import uuid
 
@@ -19,12 +20,11 @@ class BaseModel():
                 updated_at (:obj: `datetime`): stores date & time an
                                                instance is updated
         """
-        from models import storage
         if not kwargs:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key == "__class__":
@@ -50,17 +50,9 @@ class BaseModel():
                 dict_keys (:obj: `list`): list of BaseModel instances'
                                           dictionary keys
                 objects (:obj: `dict`): nested dictionary of BaseModel objects
-        dict_keys = list(storage.__class__._FileStorage__objects.keys())
-        objects = storage.__class__._FileStorage__objects
-        for key, value in self.__dict__.items():
-            if key not in objects[dict_keys[-1]]:
-                objects[dict_keys[-1]][key] = value
-        key = "{}.{}".format(self.__class__.__name__, self.id)
-        objects[key] = self.to_dict()
         """
-        from models import storage
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
