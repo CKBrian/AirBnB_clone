@@ -50,9 +50,6 @@ class BaseModel():
                 dict_keys (:obj: `list`): list of BaseModel instances'
                                           dictionary keys
                 objects (:obj: `dict`): nested dictionary of BaseModel objects
-        """
-        from models import storage
-        self.updated_at = datetime.now()
         dict_keys = list(storage.__class__._FileStorage__objects.keys())
         objects = storage.__class__._FileStorage__objects
         for key, value in self.__dict__.items():
@@ -60,6 +57,9 @@ class BaseModel():
                 objects[dict_keys[-1]][key] = value
         key = "{}.{}".format(self.__class__.__name__, self.id)
         objects[key] = self.to_dict()
+        """
+        from models import storage
+        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
