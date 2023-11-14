@@ -32,20 +32,7 @@ class HBNBCommand(cmd.Cmd):
         if arg[0] not in type(self).class_names:
             print("** class doesn't exist **")
         else:
-            if arg[0] == "BaseModel":
-                new_instance = BaseModel()
-            elif arg[0] == "User":
-                new_instance = User()
-            elif arg[0] == "State":
-                new_instance = State()
-            elif arg[0] == "City":
-                new_instance = City()
-            elif arg[0] == "Amenity":
-                new_instance = Amenity()
-            elif arg[0] == "Place":
-                new_instance = Place()
-            elif arg[0] == "Review":
-                new_instance = Review()
+            new_instance = eval(arg[0])()
             new_instance.save()
             print(new_instance.id)
 
