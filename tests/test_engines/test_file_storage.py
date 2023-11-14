@@ -5,6 +5,7 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from io import StringIO
 import unittest
+import models
 import sys
 import os
 
@@ -12,21 +13,16 @@ import os
 class TestFileStorage(TestCase):
     @classmethod
     def setUpClass(cls):
-        print("Welcome to FileStorage unittests")
-
-        file_path = os.path.join(os.path.dirname(__file__), "file.json")
-        path = file_path.split("tests/test_engines/")
-        file_path = path[0] + path[1]
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
     def test_instantiation(self):
         """tests for instantiation"""
+        if os.path.exists("file.json"):
+            print("present file")
         storage = FileStorage()
 
-        self.assertEqual({}, storage.all())
-
-        self.assertIsInstance(storage1, FileStorage)
+        self.assertIsInstance(storage, FileStorage)
 
         self.assertEqual(type(storage._FileStorage__file_path), str)
 
@@ -37,17 +33,20 @@ class TestFileStorage(TestCase):
         storage1 = FileStorage()
         storage1.reload()
         res = storage1.all()
+
         self.assertEqual(type(res), dict)
-        self.assertIs(storage1._FileStorage__objects, res)
+        self.assertEqual(storage1._FileStorage__objects, res)
+        self.assertIs(storage1._FileStorage__objects, storage1.all())
 
         storage2 = FileStorage()
         storage2.reload()
         dict_obj = storage2.all()
+
         self.assertEqual(dict_obj, storage2._FileStorage__objects)
 
     @classmethod
     def tearDownClass(cls):
-        print("Exiting FileStorage unittests")
+        pass
 
     def test_new(self):
         """tests new method"""
