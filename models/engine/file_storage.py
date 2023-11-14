@@ -37,16 +37,13 @@ class FileStorage():
             sets in __objects the obj with key <obj class name>.id
             Args:
                 obj (:obj: `class obj`): class object
+        value = obj.to_dict()
         """
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        value = obj.to_dict()
-        type(self).__objects[key] = value
+        type(self).__objects[key] = obj
 
     def save(self):
-        """serializes objects to the JSON file"""
-        objects = type(self).__objects
-        objects_dict = {}
-        for key, value in objects.items():
+        """serializes objects to the JSON file
             if isinstance(value, BaseModel):
                 objects_dict[key] = value.to_dict()
             elif isinstance(value, User):
@@ -62,7 +59,11 @@ class FileStorage():
             elif isinstance(value, Review):
                 objects_dict[key] = value.to_dict()
             else:
-                objects_dict[key] = value
+            """
+        objects = type(self).__objects
+        objects_dict = {}
+        for key, value in objects.items():
+            objects_dict[key] = value.to_dict()
 
         with open(type(self).__file_path, "w") as s_file:
             json.dump(objects_dict, s_file)
@@ -71,15 +72,10 @@ class FileStorage():
         """
         deserializes the JSON file to __objects (only if the JSON file
         (__file_path) exists otherwise, does nothing
-        """
-        objects = {}
-        try:
-            with open(type(self).__file_path, "r") as s_file:
-                objects = json.load(s_file)
-                for key, value in objects.items():
+                    print(value['__class__'])
                     class_name = key.split('.')
                     if class_name[0] == "BaseModel":
-                        reloaded_obj = BaseModel(**value)
+                        print(reloaded_obj)
                     elif class_name[0] == "User":
                         reloaded_obj = User(**value)
                     elif class_name[0] == "Place":
@@ -92,6 +88,13 @@ class FileStorage():
                         reloaded_obj = Amenity(**value)
                     elif class_name[0] == "Review":
                         reloaded_obj = Review(**value)
+        """
+        objects = {}
+        try:
+            with open(type(self).__file_path, "r") as s_file:
+                objects = json.load(s_file)
+                for key, value in objects.items():
+                    reloaded_obj = eval(value['__class__'])(**value)
                     type(self).__objects[key] = reloaded_obj
         except FileNotFoundError:
             pass
