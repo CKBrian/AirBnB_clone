@@ -13,6 +13,7 @@ class TestAmenity(TestCase):
     def test_instantiation(self):
         """Tests for object instantiation"""
         amenity1 = Amenity()
+        self.assertEqual(type(amenity1.name), str)
         self.assertIsInstance(amenity1, Amenity)
         amenity2 = Amenity()
         dict_obj = amenity2.to_dict()

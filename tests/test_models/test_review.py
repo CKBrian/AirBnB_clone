@@ -13,6 +13,10 @@ class TestReview(TestCase):
     def test_instantiation(self):
         """Tests for object instantiation"""
         review1 = Review()
+
+        self.assertEqual(type(review1.user_id), str)
+        self.assertEqual(type(review1.place_id), str)
+        self.assertEqual(type(review1.text), str)
         self.assertIsInstance(review1, Review)
         review2 = Review()
         dict_obj = review2.to_dict()

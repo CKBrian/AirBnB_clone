@@ -18,8 +18,6 @@ class TestFileStorage(TestCase):
 
     def test_instantiation(self):
         """tests for instantiation"""
-        if os.path.exists("file.json"):
-            print("present file")
         storage = FileStorage()
 
         self.assertIsInstance(storage, FileStorage)

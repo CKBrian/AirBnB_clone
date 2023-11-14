@@ -14,6 +14,9 @@ class TestState(TestCase):
         """Tests for object instantiation"""
         state1 = State()
         self.assertIsInstance(state1, State)
+
+        self.assertEqual(type(state1.name), str)
+
         state2 = State()
         dict_obj = state2.to_dict()
         self.assertNotEqual(state1.id, state2.id)

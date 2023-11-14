@@ -2,6 +2,7 @@
 """defines test_base_model modules with testcases for base_model module"""
 from unittest import TestCase
 from models.base_model import BaseModel
+from datetime import datetime
 from models.place import Place
 from models.engine.file_storage import FileStorage
 from io import StringIO
@@ -13,6 +14,31 @@ class TestPlace(TestCase):
     def test_instantiation(self):
         """Tests for object instantiation"""
         place1 = Place()
+
+        self.assertEqual(type(place1.city_id), str)
+
+        self.assertEqual(type(place1.user_id), str)
+        self.assertEqual(type(place1.amenity_ids), list)
+        self.assertEqual(type(place1.number_rooms), int)
+
+        self.assertEqual(type(place1.number_bathrooms), int)
+
+        self.assertEqual(type(place1.max_guest), int)
+
+        self.assertEqual(type(place1.price_by_night), int)
+
+        self.assertEqual(type(place1.latitude), float)
+        self.assertEqual(type(place1.longitude), float)
+
+
+        self.assertEqual(type(place1.name), str)
+
+        self.assertEqual(type(place1.description), str)
+
+        self.assertIsInstance(place1.created_at, datetime)
+
+        self.assertIsInstance(place1.updated_at, datetime)
+
         self.assertIsInstance(place1, Place)
         place2 = Place()
         dict_obj = place2.to_dict()

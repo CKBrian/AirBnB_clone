@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """defines test_base_model modules with testcases for base_model module"""
 from unittest import TestCase
+from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
 from models.engine.file_storage import FileStorage
@@ -13,6 +14,20 @@ class TestUser(TestCase):
     def test_instantiation(self):
         """Tests for object instantiation"""
         user1 = User()
+
+        self.assertEqual(type(user1.email), str)
+
+        self.assertEqual(type(user1.password), str)
+
+        self.assertEqual(type(user1.first_name), str)
+
+        self.assertEqual(type(user1.last_name), str)
+
+        self.assertIsInstance(user1.created_at, datetime)
+
+        self.assertIsInstance(user1.updated_at, datetime)
+
+        self.assertIsInstance(user1.id, str)
         self.assertIsInstance(user1, User)
         user2 = User()
         dict_obj = user2.to_dict()
