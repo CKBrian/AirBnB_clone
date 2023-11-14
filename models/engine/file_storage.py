@@ -37,29 +37,14 @@ class FileStorage():
             sets in __objects the obj with key <obj class name>.id
             Args:
                 obj (:obj: `class obj`): class object
-        value = obj.to_dict()
         """
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         type(self).__objects[key] = obj
 
     def save(self):
-        """serializes objects to the JSON file
-            if isinstance(value, BaseModel):
-                objects_dict[key] = value.to_dict()
-            elif isinstance(value, User):
-                objects_dict[key] = value.to_dict()
-            elif isinstance(value, Place):
-                objects_dict[key] = value.to_dict()
-            elif isinstance(value, State):
-                objects_dict[key] = value.to_dict()
-            elif isinstance(value, City):
-                objects_dict[key] = value.to_dict()
-            elif isinstance(value, Amenity):
-                objects_dict[key] = value.to_dict()
-            elif isinstance(value, Review):
-                objects_dict[key] = value.to_dict()
-            else:
-            """
+        """
+            serializes objects to the JSON file
+        """
         objects = type(self).__objects
         objects_dict = {}
         for key, value in objects.items():
@@ -72,22 +57,6 @@ class FileStorage():
         """
         deserializes the JSON file to __objects (only if the JSON file
         (__file_path) exists otherwise, does nothing
-                    print(value['__class__'])
-                    class_name = key.split('.')
-                    if class_name[0] == "BaseModel":
-                        print(reloaded_obj)
-                    elif class_name[0] == "User":
-                        reloaded_obj = User(**value)
-                    elif class_name[0] == "Place":
-                        reloaded_obj = Place(**value)
-                    elif class_name[0] == "State":
-                        reloaded_obj = State(**value)
-                    elif class_name[0] == "City":
-                        reloaded_obj = City(**value)
-                    elif class_name[0] == "Amenity":
-                        reloaded_obj = Amenity(**value)
-                    elif class_name[0] == "Review":
-                        reloaded_obj = Review(**value)
         """
         objects = {}
         try:
