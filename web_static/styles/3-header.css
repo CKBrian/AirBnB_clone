@@ -1,0 +1,12 @@
+header {
+	height: 70px;
+	width: 100%;
+	background-color: white;
+	border-bottom: solid 1px;
+	left: 0;
+}
+header::before {
+	margin-left: 20px;
+	height: 100%;
+	content: url("../images/logo.png");
+}
